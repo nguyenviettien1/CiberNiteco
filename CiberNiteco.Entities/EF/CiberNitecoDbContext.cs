@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using CiberNiteco.Entities.Configurations;
 using CiberNiteco.Entities.Entities;
+using CiberNiteco.Entities.Extensions;
 
 namespace CiberNiteco.Entities.EF
 {
@@ -19,11 +20,11 @@ namespace CiberNiteco.Entities.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new AppConfigConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.Seed();
         }
     }
 }

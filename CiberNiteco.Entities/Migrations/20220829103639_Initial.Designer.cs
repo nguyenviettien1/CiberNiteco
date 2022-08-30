@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CiberNiteco.Entities.Migrations
 {
     [DbContext(typeof(CiberNitecoDbContext))]
-    [Migration("20220829102958_Initial")]
+    [Migration("20220829103639_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
