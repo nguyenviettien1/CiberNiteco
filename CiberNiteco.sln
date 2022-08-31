@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CiberNiteco.Application", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CiberNiteco.Entities", "CiberNiteco.Entities\CiberNiteco.Entities.csproj", "{1F61E215-92ED-43FA-8483-5F4084931C55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CiberNiteco.Api", "CiberNiteco.Api\CiberNiteco.Api.csproj", "{E860AEF4-B767-439E-966B-EAC718B37546}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{1F61E215-92ED-43FA-8483-5F4084931C55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F61E215-92ED-43FA-8483-5F4084931C55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F61E215-92ED-43FA-8483-5F4084931C55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E860AEF4-B767-439E-966B-EAC718B37546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E860AEF4-B767-439E-966B-EAC718B37546}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E860AEF4-B767-439E-966B-EAC718B37546}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E860AEF4-B767-439E-966B-EAC718B37546}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

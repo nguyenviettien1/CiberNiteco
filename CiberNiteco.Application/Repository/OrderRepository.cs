@@ -10,18 +10,16 @@ using Microsoft.Extensions.Logging;
 
 namespace CiberNiteco.Application.Repository
 {
-    public class OrderRepository : BaseRepository, IOrderRepository
+    public class OrderRepository : IOrderRepository
     {
-        private readonly ILogger<OrderRepository> _logger;
-
-        public OrderRepository(IDbContextFactory<CiberNitecoDbContext> factory, ILogger<OrderRepository> logger) : base(factory)
+        private readonly CiberNitecoDbContext _context;
+        public OrderRepository(CiberNitecoDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
         
         public async Task<int> Create(OrderCreateRequest request)
         {
-            await using var db = Create();
             var order = new Order
             {
                 CustomerId = request.CustomerId,
@@ -29,14 +27,13 @@ namespace CiberNiteco.Application.Repository
                 Amount = request.Amount,
                 OrderDate = DateTime.Today
             };
-            db.Orders.Add(order);
-            return await db.SaveChangesAsync();
+            _context.Orders.Add(order);
+            return await _context.SaveChangesAsync();
         }
 
         public async Task<int> Update(OrderUpdateRequest request)
         {
-            await using var db = Create();
-            var oldOrder = await db.Orders.FirstOrDefaultAsync(t => t.Id == request.Id);
+            var oldOrder = await _context.Orders.FirstOrDefaultAsync(t => t.Id == request.Id);
             if (oldOrder != null)
             {
                 oldOrder.Amount = request.Amount;
@@ -45,28 +42,25 @@ namespace CiberNiteco.Application.Repository
             }
             else
             {
-                _logger.LogWarning($"Không tìm thấy đơn hàng có Id {request.Id}");
                 throw new CiberNitecoException($"Không tìm thấy đơn hàng có Id {request.Id}");
             }
 
-            return await db.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
         public async Task<int> Delete(int orderId)
         {
-            await using var db = Create();
-            var oldOrder = await db.Orders.FirstOrDefaultAsync(t => t.Id == orderId);
+            var oldOrder = await _context.Orders.FirstOrDefaultAsync(t => t.Id == orderId);
             if (oldOrder != null)
             {
-                db.Orders.Remove(oldOrder);
+                _context.Orders.Remove(oldOrder);
             }
             else
             {
-                _logger.LogWarning($"Không tìm thấy đơn hàng có Id {orderId}");
                 throw new CiberNitecoException($"Không tìm thấy đơn hàng có Id {orderId}");
             }
 
-            return await db.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
         public Task<Order> GetOrder(int orderId)
@@ -76,15 +70,13 @@ namespace CiberNiteco.Application.Repository
         
         public async Task<List<Order>> GetAllOrder()
         {
-            await using var db = Create();
-            return db.Orders.Include(t => t.Customer)
-                .Include(t => t.Product).ToList();
+            return await _context.Orders.Include(t => t.Customer)
+                .Include(t => t.Product).ToListAsync();
         }
 
         public async Task<ListResult<Order>> GetOrders(string filter, int page, int pageSize)
         {
-            await using var db = Create();
-            var q = db.Orders.Include(t => t.Customer)
+            var q = _context.Orders.Include(t => t.Customer)
                 .Include(t => t.Product);
             var total = await q.CountAsync();
             var data = await q
