@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CiberNiteco.Application
+namespace CiberNiteco.Core
 {
     public class CiberNitecoException : Exception
     {

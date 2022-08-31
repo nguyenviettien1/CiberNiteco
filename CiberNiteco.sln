@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CiberNiteco.Application", "CiberNiteco.Application\CiberNiteco.Application.csproj", "{D0488B30-6D0A-4677-854B-92B675509592}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CiberNiteco.Core", "CiberNiteco.Core\CiberNiteco.Core.csproj", "{D0488B30-6D0A-4677-854B-92B675509592}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CiberNiteco.Entities", "CiberNiteco.Entities\CiberNiteco.Entities.csproj", "{1F61E215-92ED-43FA-8483-5F4084931C55}"
 EndProject

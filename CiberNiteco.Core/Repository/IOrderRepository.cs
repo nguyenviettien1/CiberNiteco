@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CiberNiteco.Application.Dtos;
+using CiberNiteco.Core.Dtos;
 using CiberNiteco.Entities.Entities;
 
-namespace CiberNiteco.Application.Repository
+namespace CiberNiteco.Core.Repository
 {
     public interface IOrderRepository
     {

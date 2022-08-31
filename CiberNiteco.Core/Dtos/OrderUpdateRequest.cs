@@ -1,4 +1,4 @@
-﻿namespace CiberNiteco.Application.Dtos
+﻿namespace CiberNiteco.Core.Dtos
 {
     public class OrderUpdateRequest
     {

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CiberNiteco.Application.Dtos;
+using CiberNiteco.Core.Dtos;
 using CiberNiteco.Entities.EF;
 using CiberNiteco.Entities.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace CiberNiteco.Application.Repository
+namespace CiberNiteco.Core.Repository
 {
     public class OrderRepository : IOrderRepository
     {
@@ -28,7 +28,8 @@ namespace CiberNiteco.Application.Repository
                 OrderDate = DateTime.Today
             };
             _context.Orders.Add(order);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return order.Id;
         }
 
         public async Task<int> Update(OrderUpdateRequest request)
@@ -65,19 +66,25 @@ namespace CiberNiteco.Application.Repository
 
         public Task<Order> GetOrder(int orderId)
         {
-            throw new NotImplementedException();
+            return _context.Orders.Include(a => a.Customer)
+                .Include(a => a.Product)
+                .ThenInclude(t => t.Category)
+                .FirstOrDefaultAsync(t => t.Id == orderId);
         }
         
         public async Task<List<Order>> GetAllOrder()
         {
             return await _context.Orders.Include(t => t.Customer)
-                .Include(t => t.Product).ToListAsync();
+                .Include(t => t.Product)
+                .ThenInclude(a=>a.Category)
+                .ToListAsync();
         }
 
         public async Task<ListResult<Order>> GetOrders(string filter, int page, int pageSize)
         {
             var q = _context.Orders.Include(t => t.Customer)
-                .Include(t => t.Product);
+                .Include(t => t.Product)
+                .Where(t=> string.IsNullOrEmpty(filter) || t.Product.Name.ToLower().Contains(filter.ToLower()));
             var total = await q.CountAsync();
             var data = await q
                 .OrderByDescending(t => t.Id)

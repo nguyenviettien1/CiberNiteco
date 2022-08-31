@@ -1,5 +1,5 @@
 using Microsoft.OpenApi.Models;
-using CiberNiteco.Application.Repository;
+using CiberNiteco.Core.Repository;
 using CiberNiteco.Entities.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 
 namespace CiberNiteco.Api
 {

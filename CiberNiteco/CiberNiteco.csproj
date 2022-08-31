@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CiberNiteco.Application\CiberNiteco.Application.csproj" />
+    <ProjectReference Include="..\CiberNiteco.Core\CiberNiteco.Core.csproj" />
     <ProjectReference Include="..\CiberNiteco.Entities\CiberNiteco.Entities.csproj" />
   </ItemGroup>
 
