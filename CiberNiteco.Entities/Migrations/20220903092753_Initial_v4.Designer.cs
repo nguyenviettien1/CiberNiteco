@@ -4,14 +4,16 @@ using CiberNiteco.Entities.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CiberNiteco.Entities.Migrations
 {
     [DbContext(typeof(CiberNitecoDbContext))]
-    partial class CiberNitecoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220903092753_Initial_v4")]
+    partial class Initial_v4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,16 +44,6 @@ namespace CiberNiteco.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("175ee44a-cc60-45d4-8ebb-8f3b072d38f8"),
-                            ConcurrencyStamp = "e04cf57e-14d3-4273-88f9-3f41c7d752a8",
-                            Description = "Administrator role",
-                            Name = "admin",
-                            NormalizedName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("CiberNiteco.Entities.Entities.AppUser", b =>
@@ -119,27 +111,6 @@ namespace CiberNiteco.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("3728fd0a-eda0-4bf8-9048-0b7839f0404d"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "525a6404-8c12-41f6-b920-559f3b5b7da3",
-                            DateOfBirth = new DateTime(1998, 7, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "viettien98htttbn@gmail.com",
-                            EmailConfirmed = true,
-                            FirstName = "Tien",
-                            LastName = "Nguyen",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "viettien98htttbn@gmail.com",
-                            NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP7MRiCGUTkNjXaOs02z1BIjMRLHdus8970ujUhWfaOzNC1/K7CtgUs9PK7rLMDcnA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("CiberNiteco.Entities.Entities.Category", b =>
@@ -416,13 +387,6 @@ namespace CiberNiteco.Entities.Migrations
                     b.HasKey("UserId", "RoleId");
 
                     b.ToTable("AppUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("3728fd0a-eda0-4bf8-9048-0b7839f0404d"),
-                            RoleId = new Guid("175ee44a-cc60-45d4-8ebb-8f3b072d38f8")
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>

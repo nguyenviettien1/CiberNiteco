@@ -84,6 +84,7 @@ namespace CiberNiteco.Core.Repository
         {
             var q = _context.Orders.Include(t => t.Customer)
                 .Include(t => t.Product)
+                .ThenInclude(a=>a.Category)
                 .Where(t=> string.IsNullOrEmpty(filter) || t.Product.Name.ToLower().Contains(filter.ToLower()));
             var total = await q.CountAsync();
             var data = await q

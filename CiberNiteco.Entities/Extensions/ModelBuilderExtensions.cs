@@ -1,5 +1,6 @@
 ﻿using System;
 using CiberNiteco.Entities.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace CiberNiteco.Entities.Extensions
@@ -110,6 +111,40 @@ namespace CiberNiteco.Entities.Extensions
                     Amount = 170,
                     OrderDate = DateTime.Today.AddDays(-3)
                 });
+            
+            // any guid
+            var roleId = new Guid("175EE44A-CC60-45D4-8EBB-8F3B072D38F8");
+            var adminId = new Guid("3728FD0A-EDA0-4BF8-9048-0B7839F0404D");
+            modelBuilder.Entity<AppRole>().HasData(new AppRole
+            {
+                Id = roleId,
+                Name = "admin",
+                NormalizedName = "admin",
+                Description = "Administrator role"
+            });
+
+            var hasher = new PasswordHasher<AppUser>();
+            modelBuilder.Entity<AppUser>().HasData(new AppUser
+            {
+                Id = adminId,
+                UserName = "admin",
+                NormalizedUserName = "admin",
+                Email = "viettien98htttbn@gmail.com",
+                NormalizedEmail = "viettien98htttbn@gmail.com",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "12345aA@"),
+                SecurityStamp = string.Empty,
+                FirstName = "Tien",
+                LastName = "Nguyen",
+                DateOfBirth = new DateTime(1998, 07, 02)
+            });
+
+            modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>
+            {
+                RoleId = roleId,
+                UserId = adminId
+            });
+
         }
     }
 }

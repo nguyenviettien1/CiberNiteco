@@ -1,17 +1,19 @@
 ﻿using System.Threading.Tasks;
 using CiberNiteco.Core.Dtos;
 using CiberNiteco.Core.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CiberNiteco.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController: ControllerBase
+    [Authorize]
+    public class OrdersController: ControllerBase
     {
         private readonly IOrderRepository _orderRepository;
 
-        public OrderController(IOrderRepository orderRepository)
+        public OrdersController(IOrderRepository orderRepository)
         {
             _orderRepository = orderRepository;
         }
