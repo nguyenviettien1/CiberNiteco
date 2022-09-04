@@ -29,7 +29,7 @@ namespace CiberNiteco.Api.Controllers
                 return BadRequest("Tên đăng nhập hoặc mật khẩu không đúng");
             }
 
-            return Ok(new { accessToken = token });
+            return Ok(token);
         }
     }
 }
