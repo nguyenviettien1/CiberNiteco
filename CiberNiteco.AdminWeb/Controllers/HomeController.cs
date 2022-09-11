@@ -6,23 +6,37 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CiberNiteco.AdminWeb.Models;
+using CiberNiteco.AdminWeb.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 
 namespace CiberNiteco.AdminWeb.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
+        private readonly IOrderApiAdminWeb _orderApiAdminWeb;
+        //private readonly IConfiguration _configuration;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IOrderApiAdminWeb orderApiAdminWeb, IConfiguration configuration)
         {
-            _logger = logger;
+            //_logger = logger;
+            _orderApiAdminWeb = orderApiAdminWeb;
+            //_configuration = configuration;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string filter, int page = 1, int take = 10)
         {
-            return View();
+            var data = await _orderApiAdminWeb.GetOrdersAsync(filter, page, take);
+            ViewBag.Filter = filter;
+            if (TempData["result"] != null)
+            {
+                ViewBag.SuccessMsg = TempData["result"];
+            }
+            return View(data);
         }
-
+        
         public IActionResult Privacy()
         {
             return View();
