@@ -45,7 +45,7 @@ namespace CiberNiteco.AdminWeb.Controllers
             var authProperties = new AuthenticationProperties
             {
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                IsPersistent = false
+                IsPersistent = true
             };
             HttpContext.Session.SetString("Token", token);
             await HttpContext.SignInAsync(

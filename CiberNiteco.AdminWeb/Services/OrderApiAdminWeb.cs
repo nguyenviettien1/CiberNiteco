@@ -46,9 +46,19 @@ namespace CiberNiteco.AdminWeb.Services
 
         public async Task<ListResult<Order>> GetOrdersAsync(string filter, int page, int take)
         {
-            var data = await GetAsync<ListResult<Order>>(
-                $"/api/Orders/paging?filter={filter}" + $"pageIndex={page}" +
-                $"&pageSize={take}");
+            var data = new ListResult<Order>();
+            if (string.IsNullOrEmpty(filter))
+            {
+                data = await GetAsync<ListResult<Order>>(
+                    $"/api/Orders/paging?"+$"page={page}" +
+                    $"&pageSize={take}");
+            }
+            else
+            {
+                data = await GetAsync<ListResult<Order>>(
+                    $"/api/Orders/paging?"+$"filter={filter}"+$"&page={page}" +
+                    $"&pageSize={take}");
+            }
             return data;
         }
     }

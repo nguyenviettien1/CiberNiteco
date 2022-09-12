@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CiberNiteco.AdminWeb.Models;
 using CiberNiteco.AdminWeb.Services;
+using CiberNiteco.Core;
+using CiberNiteco.Entities.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 
@@ -28,8 +30,17 @@ namespace CiberNiteco.AdminWeb.Controllers
 
         public async Task<IActionResult> Index(string filter, int page = 1, int take = 10)
         {
-            var data = await _orderApiAdminWeb.GetOrdersAsync(filter, page, take);
+            var data = new ListResult<Order>
+            {
+                Total = 0,
+                Data = new List<Order>()
+            };
+            var x = await _orderApiAdminWeb.GetOrdersAsync(filter, page, take);
             ViewBag.Filter = filter;
+            if (x?.Data != null)
+            {
+                data = x;
+            }
             if (TempData["result"] != null)
             {
                 ViewBag.SuccessMsg = TempData["result"];
