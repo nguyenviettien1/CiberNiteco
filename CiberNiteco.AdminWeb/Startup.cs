@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CiberNiteco.AdminWeb.Services;
+using CiberNiteco.Core.Repository;
 using CiberNiteco.Entities.Models.Users;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -38,9 +39,9 @@ namespace CiberNiteco.AdminWeb
                     options.AccessDeniedPath = "/User/Forbidden/";
                 });
             services.AddControllersWithViews()
-#pragma warning disable CS0618
+            #pragma warning disable CS0618
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
-#pragma warning restore CS0618
+            #pragma warning restore CS0618
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -48,6 +49,8 @@ namespace CiberNiteco.AdminWeb
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUserApiAdminWeb, UserApiAdminWeb>();
             services.AddTransient<IOrderApiAdminWeb, OrderApiAdminWeb>();
+            services.AddSingleton<IProductRepository, ProductRepository>();
+            services.AddSingleton<ICustomerRepository, CustomerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

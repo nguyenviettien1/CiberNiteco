@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using CiberNiteco.Core;
 using CiberNiteco.Core.Dtos;
@@ -12,16 +15,38 @@ namespace CiberNiteco.AdminWeb.Services
 {
     public class OrderApiAdminWeb : BaseApiAdminWeb, IOrderApiAdminWeb
     {
-
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
         public OrderApiAdminWeb(IHttpClientFactory httpClientFactory,
             IHttpContextAccessor httpContextAccessor,
             IConfiguration configuration)
             : base(httpClientFactory, httpContextAccessor, configuration)
         {
+            _httpContextAccessor = httpContextAccessor;
+            _configuration = configuration;
+            _httpClientFactory = httpClientFactory;
         }
-        public Task<int> Create(OrderCreateRequest request)
+        public async Task<bool> Create(OrderCreateRequest request)
         {
-            throw new System.NotImplementedException();
+            if (_httpContextAccessor
+                    .HttpContext == null) return false;
+            var sessions = _httpContextAccessor
+                .HttpContext
+                .Session
+                .GetString("Token");
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri("https://localhost:5001");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+            var requestContent = new MultipartFormDataContent();
+            requestContent.Add(new StringContent(request.CustomerId.ToString()), "customerId");
+            requestContent.Add(new StringContent(request.ProductId.ToString()), "productId");
+            requestContent.Add(new StringContent(request.OrderName), "orderName");
+            requestContent.Add(new StringContent(request.OrderDate.Date.ToString(CultureInfo.InvariantCulture)), "orderDate");
+            requestContent.Add(new StringContent(request.Amount.ToString(CultureInfo.InvariantCulture)), "description");
+
+            var response = await client.PostAsync($"/api/Orders/", requestContent);
+            return response.IsSuccessStatusCode;
         }
 
         public Task<int> Update(OrderUpdateRequest request)

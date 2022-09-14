@@ -8,7 +8,7 @@ namespace CiberNiteco.AdminWeb.Services
 {
     public interface IOrderApiAdminWeb
     {
-        Task<int> Create(OrderCreateRequest request);
+        Task<bool> Create(OrderCreateRequest request);
         Task<int> Update(OrderUpdateRequest request);
         Task<int> Delete(int orderId);
         Task<Order> GetOrder(int orderId);

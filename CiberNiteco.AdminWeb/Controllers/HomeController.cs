@@ -8,8 +8,11 @@ using Microsoft.Extensions.Logging;
 using CiberNiteco.AdminWeb.Models;
 using CiberNiteco.AdminWeb.Services;
 using CiberNiteco.Core;
+using CiberNiteco.Core.Dtos;
+using CiberNiteco.Core.Repository;
 using CiberNiteco.Entities.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 
 namespace CiberNiteco.AdminWeb.Controllers
@@ -19,12 +22,17 @@ namespace CiberNiteco.AdminWeb.Controllers
     {
         //private readonly ILogger<HomeController> _logger;
         private readonly IOrderApiAdminWeb _orderApiAdminWeb;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IProductRepository _productRepository;
         //private readonly IConfiguration _configuration;
 
-        public HomeController(ILogger<HomeController> logger, IOrderApiAdminWeb orderApiAdminWeb, IConfiguration configuration)
+        public HomeController(ILogger<HomeController> logger, IOrderApiAdminWeb orderApiAdminWeb, IConfiguration configuration, 
+            ICustomerRepository customerRepository, IProductRepository productRepository)
         {
             //_logger = logger;
             _orderApiAdminWeb = orderApiAdminWeb;
+            _customerRepository = customerRepository;
+            _productRepository = productRepository;
             //_configuration = configuration;
         }
         [HttpGet]
@@ -48,7 +56,23 @@ namespace CiberNiteco.AdminWeb.Controllers
             return View(data);
         }
 
-        
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            SetViewBagCustomer();
+            SetViewBagProduct();
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(OrderCreateRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -58,6 +82,17 @@ namespace CiberNiteco.AdminWeb.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        
+        public async void SetViewBagCustomer(long? selectedId = null)
+        {
+            var x = await _customerRepository.GetAllCustomer();
+            ViewBag.CustomerId = new SelectList(x, "Id", "Name", selectedId);
+        }
+        public async void SetViewBagProduct(long? selectedId = null)
+        {
+            var x = await _productRepository.GetAllProduct();
+            ViewBag.ProductId = new SelectList(x, "Id", "Name", selectedId);
         }
     }
 }
