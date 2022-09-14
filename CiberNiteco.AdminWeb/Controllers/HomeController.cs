@@ -27,7 +27,7 @@ namespace CiberNiteco.AdminWeb.Controllers
             _orderApiAdminWeb = orderApiAdminWeb;
             //_configuration = configuration;
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index(string filter, int page = 1, int take = 10)
         {
             var data = new ListResult<Order>
@@ -47,6 +47,7 @@ namespace CiberNiteco.AdminWeb.Controllers
             }
             return View(data);
         }
+
         
         public IActionResult Privacy()
         {

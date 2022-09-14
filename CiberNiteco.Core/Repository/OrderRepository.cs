@@ -22,10 +22,11 @@ namespace CiberNiteco.Core.Repository
         {
             var order = new Order
             {
+                OrderName = request.OrderName,
                 CustomerId = request.CustomerId,
                 ProductId = request.ProductId,
                 Amount = request.Amount,
-                OrderDate = DateTime.Today
+                OrderDate = request.OrderDate
             };
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
@@ -37,6 +38,8 @@ namespace CiberNiteco.Core.Repository
             var oldOrder = await _context.Orders.FirstOrDefaultAsync(t => t.Id == request.Id);
             if (oldOrder != null)
             {
+                oldOrder.OrderDate = request.OrderDate;
+                oldOrder.OrderName = request.OrderName;
                 oldOrder.Amount = request.Amount;
                 oldOrder.CustomerId = request.CustomerId;
                 oldOrder.ProductId = request.ProductId;

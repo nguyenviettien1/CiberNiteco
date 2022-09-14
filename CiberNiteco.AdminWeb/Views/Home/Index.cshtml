@@ -79,10 +79,12 @@
                                     @Html.DisplayFor(modelItem => item.Customer.Name)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.OrderDate)
+                                    @{ var orderDate = item.OrderDate.ToString("mm/dd/yyyy"); }
+                                    @Html.DisplayFor(modelItem => orderDate)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Amount)
+                                    @{ var amount = (int)item.Amount; }
+                                    @Html.DisplayFor(modelItem => amount)
                                 </td>
 
                                 <td>

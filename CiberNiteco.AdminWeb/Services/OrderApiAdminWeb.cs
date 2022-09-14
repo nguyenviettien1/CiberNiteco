@@ -46,7 +46,7 @@ namespace CiberNiteco.AdminWeb.Services
 
         public async Task<ListResult<Order>> GetOrdersAsync(string filter, int page, int take)
         {
-            var data = new ListResult<Order>();
+            ListResult<Order> data;
             if (string.IsNullOrEmpty(filter))
             {
                 data = await GetAsync<ListResult<Order>>(

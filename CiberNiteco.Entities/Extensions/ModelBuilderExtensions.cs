@@ -99,6 +99,7 @@ namespace CiberNiteco.Entities.Extensions
                 {
                     Id = 1,
                     CustomerId = 1,
+                    OrderName = "Đơn hàng đầu tiên test",
                     ProductId = 2,
                     Amount = 20,
                     OrderDate = DateTime.Today.AddDays(-4)
@@ -107,6 +108,7 @@ namespace CiberNiteco.Entities.Extensions
                 {
                     Id = 2,
                     CustomerId = 3,
+                    OrderName = "Đơn hàng thứ hai test",
                     ProductId = 1,
                     Amount = 170,
                     OrderDate = DateTime.Today.AddDays(-3)
