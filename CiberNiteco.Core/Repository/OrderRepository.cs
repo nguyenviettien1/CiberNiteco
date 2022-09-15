@@ -28,6 +28,12 @@ namespace CiberNiteco.Core.Repository
                 Amount = request.Amount,
                 OrderDate = request.OrderDate
             };
+            var x = _context.Products.FirstOrDefault(t => t.Id == request.ProductId);
+            if (x?.Quantity < request.Amount)
+            {
+                return -1;
+            }
+            if (x != null) x.Quantity -= request.Amount;
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
             return order.Id;

@@ -43,7 +43,7 @@ namespace CiberNiteco.AdminWeb.Services
             requestContent.Add(new StringContent(request.ProductId.ToString()), "productId");
             requestContent.Add(new StringContent(request.OrderName), "orderName");
             requestContent.Add(new StringContent(request.OrderDate.Date.ToString(CultureInfo.InvariantCulture)), "orderDate");
-            requestContent.Add(new StringContent(request.Amount.ToString(CultureInfo.InvariantCulture)), "description");
+            requestContent.Add(new StringContent(request.Amount.ToString(CultureInfo.InvariantCulture)), "amount");
 
             var response = await client.PostAsync($"/api/Orders/", requestContent);
             return response.IsSuccessStatusCode;

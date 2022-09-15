@@ -22,17 +22,17 @@ namespace CiberNiteco.AdminWeb.Controllers
     {
         //private readonly ILogger<HomeController> _logger;
         private readonly IOrderApiAdminWeb _orderApiAdminWeb;
-        private readonly ICustomerRepository _customerRepository;
-        private readonly IProductRepository _productRepository;
+        private readonly ICustomerApiAdminWeb _customerApiAdminWeb;
+        private readonly IProductApiAdminWeb _productApiAdminWeb;
         //private readonly IConfiguration _configuration;
 
         public HomeController(ILogger<HomeController> logger, IOrderApiAdminWeb orderApiAdminWeb, IConfiguration configuration, 
-            ICustomerRepository customerRepository, IProductRepository productRepository)
+            ICustomerApiAdminWeb customerApiAdminWeb, IProductApiAdminWeb productApiAdminWeb)
         {
             //_logger = logger;
             _orderApiAdminWeb = orderApiAdminWeb;
-            _customerRepository = customerRepository;
-            _productRepository = productRepository;
+            _customerApiAdminWeb = customerApiAdminWeb;
+            _productApiAdminWeb = productApiAdminWeb;
             //_configuration = configuration;
         }
         [HttpGet]
@@ -59,18 +59,45 @@ namespace CiberNiteco.AdminWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            SetViewBagCustomer();
-            SetViewBagProduct();
+            var productList = await _productApiAdminWeb.GetAllProduct();
+            List<SelectListItem> products = new List<SelectListItem>();
+            foreach( var c in productList )
+            {
+                products.Add(new SelectListItem
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
+                });
+            }
+            ViewBag.ProductId = products;
+            var customerList = await _customerApiAdminWeb.GetAllCustomer();
+            List<SelectListItem> customers = new List<SelectListItem>();
+            foreach( var c in customerList )
+            {
+                customers.Add(new SelectListItem
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
+                });
+            }
+            ViewBag.CustomerId = customers;
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(OrderCreateRequest request)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create([FromForm]OrderCreateRequest request)
         {
             if (!ModelState.IsValid)
-            {
                 return View();
+
+            var result = await _orderApiAdminWeb.Create(request);
+            if (result)
+            {
+                TempData["result"] = "Thêm mới đơn hàng thành công";
+                return RedirectToAction("Index");
             }
 
+            ModelState.AddModelError("", "Thêm đơn hàng thất bại");
             return View();
         }
         public IActionResult Privacy()
@@ -84,15 +111,5 @@ namespace CiberNiteco.AdminWeb.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         
-        public async void SetViewBagCustomer(long? selectedId = null)
-        {
-            var x = await _customerRepository.GetAllCustomer();
-            ViewBag.CustomerId = new SelectList(x, "Id", "Name", selectedId);
-        }
-        public async void SetViewBagProduct(long? selectedId = null)
-        {
-            var x = await _productRepository.GetAllProduct();
-            ViewBag.ProductId = new SelectList(x, "Id", "Name", selectedId);
-        }
     }
 }

@@ -46,11 +46,11 @@ namespace CiberNiteco.AdminWeb
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
             });
+            services.AddTransient<IProductApiAdminWeb, ProductApiAdminWeb>();
+            services.AddTransient<ICustomerApiAdminWeb, CustomerApiAdminWeb>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUserApiAdminWeb, UserApiAdminWeb>();
             services.AddTransient<IOrderApiAdminWeb, OrderApiAdminWeb>();
-            services.AddSingleton<IProductRepository, ProductRepository>();
-            services.AddSingleton<ICustomerRepository, CustomerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

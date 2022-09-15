@@ -41,6 +41,8 @@ namespace CiberNiteco.Api
                 .AddDefaultTokenProviders();
             //Declare DI
             services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
             services.AddTransient<IUserService, UserService>();

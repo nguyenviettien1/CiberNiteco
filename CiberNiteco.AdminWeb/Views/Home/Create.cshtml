@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("Create", "Home", FormMethod.Post))
+@using (Html.BeginForm("Create", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="container-fluid">
@@ -23,21 +23,25 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.CustomerId, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.DropDownListFor(model => model.CustomerId, null, new
-                {
-                    @class = "input-custom js-input",
-                    @required = true,
-                    @id = "customerId"
-                })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.CustomerId, null, new
+                    {
+                        @class = "input-custom js-input",
+                        @required = true,
+                        @id = "customerId"
+                    })
+                </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.ProductId, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.DropDownListFor(model => model.ProductId, null, new
-                {
-                    @class = "input-custom js-input",
-                    @required = true,
-                    @id = "productId"
-                })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.ProductId, null, new
+                    {
+                        @class = "input-custom js-input",
+                        @required = true,
+                        @id = "productId"
+                    })
+                </div>
             </div>
             
             <div class="form-group">
@@ -51,10 +55,10 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", type = "number" } })
-                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" , type = "number"})
                 </div>
-            </div>            
+            </div>           
             
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
