@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CiberNiteco.Api", "CiberNit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CiberNiteco.AdminWeb", "CiberNiteco.AdminWeb\CiberNiteco.AdminWeb.csproj", "{7AB05AE2-C0EE-4336-8FB2-CDF88A9466D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CiberNiteco.UnitTest", "CiberNiteco.UnitTest\CiberNiteco.UnitTest.csproj", "{B31FA733-7D93-46B7-8617-436AE88E5A87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{7AB05AE2-C0EE-4336-8FB2-CDF88A9466D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AB05AE2-C0EE-4336-8FB2-CDF88A9466D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AB05AE2-C0EE-4336-8FB2-CDF88A9466D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B31FA733-7D93-46B7-8617-436AE88E5A87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B31FA733-7D93-46B7-8617-436AE88E5A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B31FA733-7D93-46B7-8617-436AE88E5A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B31FA733-7D93-46B7-8617-436AE88E5A87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

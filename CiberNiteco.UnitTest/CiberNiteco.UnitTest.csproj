@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.17" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
+        <PackageReference Include="Moq.EntityFrameworkCore" Version="5.0.0.2" />
+        <PackageReference Include="NUnit" Version="3.13.1" />
+        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+        <PackageReference Include="coverlet.collector" Version="3.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CiberNiteco.AdminWeb\CiberNiteco.AdminWeb.csproj" />
+      <ProjectReference Include="..\CiberNiteco.Api\CiberNiteco.Api.csproj" />
+      <ProjectReference Include="..\CiberNiteco.Core\CiberNiteco.Core.csproj" />
+      <ProjectReference Include="..\CiberNiteco.Entities\CiberNiteco.Entities.csproj" />
+    </ItemGroup>
+
+</Project>
